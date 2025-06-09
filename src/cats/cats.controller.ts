@@ -13,15 +13,24 @@ import {
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
 import { CreateCatDto } from './dto/create-cat.dto';
+import { CatsService } from './cats.service';
 
 // app.example.com/cats -> static subdomain
 // :account.example.com -> dynamic subdomain
 
 @Controller('cats')
 export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
+
   @Get()
-  findAll(): string {
-    return 'This action returns all cats';
+  findAll() {
+    return this.catsService.findAll();
+  }
+
+  @Post()
+  // @HttpCode(204) // custom status code
+  create(@Body() createCatDto: CreateCatDto) {
+    return this.catsService.create(createCatDto);
   }
 
   // Endpoint: /cats/breeds
@@ -34,13 +43,6 @@ export class CatsController {
   findAllWithRequest(@Req() request: Request /* request object */) {
     console.log(request);
     return 'Check server console for request object';
-  }
-
-  @Post()
-  @HttpCode(204) // custom status code
-  create(@Body() createCatDto: any) {
-    console.log('create-data', createCatDto);
-    return 'This action adds a new cat ' + createCatDto.name;
   }
 
   @Get('abcd/*') // wildcard route
