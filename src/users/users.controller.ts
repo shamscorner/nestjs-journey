@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   HttpCode,
+  ForbiddenException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +19,13 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
+    const { email } = createUserDto;
+
+    // mock for custom exception filters example
+    if (email === 'ex@ex.com') {
+      throw new ForbiddenException();
+    }
+
     return this.usersService.create(createUserDto);
   }
 

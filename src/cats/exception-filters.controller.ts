@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   // BadRequestException,
   Controller,
   ForbiddenException,
@@ -6,17 +7,23 @@ import {
   // HttpException,
   // HttpStatus,
   Post,
+  UseFilters,
 } from '@nestjs/common';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 // import { CustomForbiddenException } from './exceptions/forbidden.exception';
 
 @Controller('exception-filters')
+@UseFilters(HttpExceptionFilter)
 export class ExceptionFiltersController {
   @Get('test-exception')
   testException() {
-    throw new Error('This is a test exception');
+    // throw new Error('This is a test exception');
+    throw new BadRequestException();
   }
 
   @Post('forbidden-access')
+  // @UseFilters(new HttpExceptionFilter()) // instance of filter
+  // @UseFilters(HttpExceptionFilter) // class way
   forbiddenAccess() {
     // throw new HttpException('Forbidden access!', 403);
 
