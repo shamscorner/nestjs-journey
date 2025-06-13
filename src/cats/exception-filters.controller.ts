@@ -14,7 +14,7 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 // import { CustomForbiddenException } from './exceptions/forbidden.exception';
 
 @Controller('exception-filters')
-@UseFilters(HttpExceptionFilter)
+// @UseFilters(HttpExceptionFilter)
 export class ExceptionFiltersController {
   @Get('test-exception')
   testException() {
