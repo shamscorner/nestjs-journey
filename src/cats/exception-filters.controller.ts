@@ -10,6 +10,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+// import { CatchEverythingFilter } from './filters/catch-everything.filter';
 // import { CustomForbiddenException } from './exceptions/forbidden.exception';
 
 @Controller('exception-filters')
@@ -24,6 +25,7 @@ export class ExceptionFiltersController {
   @Post('forbidden-access')
   // @UseFilters(new HttpExceptionFilter()) // instance of filter
   // @UseFilters(HttpExceptionFilter) // class way
+  // @UseFilters(CatchEverythingFilter)
   forbiddenAccess() {
     // throw new HttpException('Forbidden access!', 403);
 
